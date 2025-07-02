@@ -18,8 +18,9 @@
       --subtext: #aaaaaa;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     body {
@@ -68,8 +69,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: var(--background);
       display: flex;
       flex-direction: column;
@@ -77,6 +78,8 @@
       align-items: center;
       z-index: 9999;
       transition: opacity 0.5s ease-out;
+      padding: 0 1rem;
+      box-sizing: border-box;
     }
 
     .loading-screen.fade-out {
@@ -143,6 +146,29 @@
     .main-content.show {
       opacity: 1;
     }
+
+    @media (max-width: 600px) {
+      .loading-screen h1 {
+        font-size: 1.3rem;
+        text-align: center;
+      }
+      .typing-animation {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+      }
+      .progress-container {
+        width: 90vw;
+        max-width: 250px;
+      }
+    }
+
+    nav::-webkit-scrollbar {
+      display: none;
+    }
+    nav {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 
@@ -161,14 +187,14 @@
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
   <!-- Navigation -->
-  <nav class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 px-10 py-4 rounded-full glass">
-    <ul class="flex gap-8 text-sm text-white">
-      <li><a href="#home" class="hover:text-[var(--primary)] transition font-medium">Home</a></li>
-      <li><a href="#skills" class="hover:text-[var(--primary)] transition font-medium">My Skills</a></li>
-      <li><a href="#tech" class="hover:text-[var(--primary)] transition font-medium">Tools & Tech</a></li>
-      <li><a href="#projects" class="hover:text-[var(--primary)] transition font-medium">Projects</a></li>
-      <li><a href="assets/My_Resume.pdf" target="_blank" download class="hover:text-[var(--primary)] transition font-medium flex items-center gap-1 blank">Resume</a></li>
-      <li><a href="#contact" class="hover:text-[var(--primary)] transition font-medium">Contact</a></li>
+  <nav class="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-[98vw] max-w-xs md:max-w-none md:w-auto px-1.5 py-1.5 md:px-6 md:py-3 rounded-full glass overflow-x-auto">
+    <ul class="flex flex-row gap-1.5 md:gap-6 text-[11px] md:text-sm text-white items-center min-w-max">
+      <li><a href="#home" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Home</a></li>
+      <li><a href="#skills" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Skills</a></li>
+      <li><a href="#tech" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Tools</a></li>
+      <li><a href="#projects" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Projects</a></li>
+      <li><a href="assets/My_Resume.pdf" target="_blank" download class="hover:text-[var(--primary)] transition font-medium flex items-center gap-1 blank px-2 py-1">Resume</a></li>
+      <li><a href="#contact" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Contact</a></li>
     </ul>
   </nav>
 
@@ -201,10 +227,10 @@
   </section>
 
   <!-- Where Intelligence Meets Code -->
-<section id="skills" class="py-20 bg-[#161618]" data-aos="fade-up">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-center text-4xl font-bold mb-14">💡 Where Intelligence Meets Code</h2>
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+<section id="skills" class="py-10 sm:py-16 md:py-20 bg-[#161618]" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto px-3 sm:px-6">
+    <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-14">💡 Where Intelligence Meets Code</h2>
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
       <!-- ML Algorithms -->
       <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
@@ -308,9 +334,9 @@
   </div>
 </section>
 
-<section id="tech" class="py-20 bg-[#0f0f11]" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-center text-4xl font-bold mb-14 text-white">⚙️ Tools & Technologies</h2>
+<section id="tech" class="py-10 sm:py-16 md:py-20 bg-[#0f0f11]" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6">
+      <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-14 text-white">⚙️ Tools & Technologies</h2>
       <div class="stack-scroll">
         <div class="scroll-track">
           <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/python.svg" class="h-8" /> <span class="text-lg font-medium">Python</span></div>
@@ -421,11 +447,11 @@
     </div>
   </section>
 <!-- Projects -->
-<section id="projects" class="py-20" data-aos="fade-up">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-center text-4xl font-bold mb-14">🚀 Recent Work</h2>
+<section id="projects" class="py-10 sm:py-16 md:py-20" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto px-3 sm:px-6">
+    <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-14">🚀 Recent Work</h2>
     <!-- Shared grid for both projects -->
-    <div class="grid md:grid-cols-2 gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
       <!-- Project 1 -->
       <div class="glass rounded-2xl overflow-hidden hover:scale-[1.02] transition">
         <img src="assets/brain.jpeg" alt="Project Image" class="w-full h-52 object-cover" />
@@ -456,14 +482,14 @@
   
 
   <!-- Contact -->
-  <section id="contact" class="py-20 bg-[#161618]" data-aos="fade-up">
-    <div class="max-w-xl mx-auto px-6">
-      <h2 class="text-center text-4xl font-bold mb-10">📬 Let's Connect</h2>
-      <form action="https://formspree.io/f/xnnvpevj" method="POST" class="space-y-5">
-        <input type="text" name="from_name" placeholder="Name" required class="w-full p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white" />
-        <input type="email" name="email" placeholder="Email" required class="w-full p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white" />
-        <textarea name="message" rows="5" placeholder="Message..." required class="w-full p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white"></textarea>
-        <button type="submit" class="bg-[var(--primary)] text-black w-full py-3 rounded-lg font-semibold hover:bg-transparent hover:text-[var(--primary)] border border-[var(--primary)] transition">Send Message</button>
+  <section id="contact" class="py-10 sm:py-16 md:py-20 bg-[#161618]" data-aos="fade-up">
+    <div class="max-w-xl mx-auto px-3 sm:px-6">
+      <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-10">📬 Let's Connect</h2>
+      <form action="https://formspree.io/f/xnnvpevj" method="POST" class="space-y-4 sm:space-y-5">
+        <input type="text" name="from_name" placeholder="Name" required class="w-full p-3 sm:p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white text-sm sm:text-base" />
+        <input type="email" name="email" placeholder="Email" required class="w-full p-3 sm:p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white text-sm sm:text-base" />
+        <textarea name="message" rows="5" placeholder="Message..." required class="w-full p-3 sm:p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white text-sm sm:text-base"></textarea>
+        <button type="submit" class="bg-[var(--primary)] text-black w-full py-2 sm:py-3 rounded-lg font-semibold hover:bg-transparent hover:text-[var(--primary)] border border-[var(--primary)] transition text-sm sm:text-base">Send Message</button>
       </form>
     </div>
   </section>
