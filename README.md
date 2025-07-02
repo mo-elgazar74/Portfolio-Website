@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/83d37cf8-e1b2-4f79-a6d0-82c9935099ea)# 🌟 Portfolio Website
+# 🌟 Portfolio Website
 
 <div align="center">
 
@@ -121,7 +121,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📬 Contact
 
 **Mohamed El-Gazar**
-- 📧 Email: [MohamedElgazar498]([mohamedelgazar498@gmail.com](https://mail.google.com/mail/u/0/?fs=1&to=mohamedelgazar498@gmail.com&su=Hello+Mohamed!&tf=cm))
+- 📧 Email: [MohamedElgazar498](https://mail.google.com/mail/?view=cm&fs=1&to=mohamedelgazar498@gmail.com&su=Hello%20Mohamed!)
 - 💼 LinkedIn: [Mohamed Elgazar](https://www.linkedin.com/in/mohamed-elgazar-17b198264/)
 - 🐱 GitHub: [@mo-elgazar74](https://github.com/mo-elgazar74)
 - 🌐 Portfolio: [Live Demo](https://portfolio-website-mauve-rho-85.vercel.app/)
