@@ -21,6 +21,7 @@
     html, body {
       max-width: 100vw;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -169,6 +170,18 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    /* Hero entrance animations */
+    .hero-ready .topbar { opacity: 0; transform: translateY(-12px); }
+    .hero-ready .hero-left { opacity: 0; transform: translateY(16px); }
+    .hero-ready .hero-right { opacity: 0; transform: scale(0.92); }
+
+    .hero-animate .topbar { animation: slideDown 500ms ease-out forwards; }
+    .hero-animate .hero-left { animation: fadeUp 650ms ease-out 120ms forwards; }
+    .hero-animate .hero-right { animation: scaleIn 700ms ease-out 220ms forwards; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 
@@ -185,57 +198,427 @@
   </div>
 
   <!-- Main Content -->
-  <div class="main-content" id="mainContent">
-  <!-- Navigation -->
-  <nav class="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-[98vw] max-w-xs md:max-w-none md:w-auto px-1.5 py-1.5 md:px-6 md:py-3 rounded-full glass overflow-x-auto">
-    <ul class="flex flex-row gap-1.5 md:gap-6 text-[11px] md:text-sm text-white items-center min-w-max">
-      <li><a href="#home" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Home</a></li>
-      <li><a href="#skills" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Skills</a></li>
-      <li><a href="#tech" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Tools</a></li>
-      <li><a href="#projects" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Projects</a></li>
-      <li><a href="assets/My_Resume.pdf" target="_blank" class="hover:text-[var(--primary)] transition font-medium flex items-center gap-1 blank px-2 py-1">Resume</a></li>
-      <li><a href="#contact" class="hover:text-[var(--primary)] transition font-medium px-2 py-1">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="main-content hero-ready" id="mainContent">
+  <!-- Global Glowing Background -->
+  <div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute -top-24 -left-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-30 bg-[var(--primary)]"></div>
+    <div class="absolute top-1/3 -right-24 w-[32rem] h-[32rem] rounded-full blur-3xl opacity-20 bg-purple-600"></div>
+    <div class="absolute bottom-0 left-1/4 w-[26rem] h-[26rem] rounded-full blur-3xl opacity-20 bg-cyan-500"></div>
+  </div>
+
+  <!-- Top Bar -->
+  <section class="fixed top-12 left-0 right-0 z-50 topbar" aria-label="Top navigation bar">
+    <div class="max-w-6xl mx-auto px-4 py-2 mt-0 bg-[#0e0e10]/85 border border-white/10 rounded-full shadow-lg">
+      <div class="flex items-center justify-between">
+        <!-- Brand -->
+        <a href="#home" class="font-extrabold text-lg tracking-tight">Mohamed.</a>
+        <!-- Center Nav -->
+        <nav class="hidden md:block">
+          <ul class="flex gap-6 text-base">
+            <li><a href="#home" class="hover:text-[var(--primary)] transition">Home</a></li>
+            <li><a href="#about" class="hover:text-[var(--primary)] transition">About</a></li>
+            <li><a href="#timeline" class="hover:text-[var(--primary)] transition">Journey</a></li>
+            <li><a href="#tech" class="hover:text-[var(--primary)] transition">Skills & Tools</a></li>
+            <!-- <li><a href="#tech" class="hover:text-[var(--primary)] transition">Tools</a></li> -->
+            <li><a href="#projects" class="hover:text-[var(--primary)] transition">Projects</a></li>
+            <li><a href="assets/My_Resume.pdf" target="_blank" class="hover:text-[var(--primary)] transition">CV</a></li>
+            <li><a href="#contact" class="hover:text-[var(--primary)] transition">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- Socials -->
+        <div class="flex items-center gap-2">
+          <a target="_blank" href="https://github.com/mo-elgazar74" aria-label="GitHub" class="group border border-white/20 p-2.5 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white group-hover:text-black"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"/></svg>
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/in/mohamed-elgazar-17b198264/" aria-label="LinkedIn" class="group border border-white/20 p-2.5 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white group-hover:text-black"><path d="M18.3362 18.339H15.6707V14.1622C15.6707 13.1662 15.6505 11.8845 14.2817 11.8845C12.892 11.8845 12.6797 12.9683 12.6797 14.0887V18.339H10.0142V9.75H12.5747V10.9207H12.6092C12.967 10.2457 13.837 9.53325 15.1367 9.53325C17.8375 9.53325 18.337 11.3108 18.337 13.6245V18.339H18.3362ZM7.00373 8.57475C6.14573 8.57475 5.45648 7.88025 5.45648 7.026C5.45648 6.1725 6.14648 5.47875 7.00373 5.47875C7.85873 5.47875 8.55173 6.1725 8.55173 7.026C8.55173 7.88025 7.85798 8.57475 7.00373 8.57475ZM8.34023 18.339H5.66723V9.75H8.34023V18.339ZM19.6697 3H4.32923C3.59498 3 3.00098 3.5805 3.00098 4.29675V19.7033C3.00098 20.4202 3.59498 21 4.32923 21H19.6675C20.401 21 21.001 20.4202 21.001 19.7033V4.29675C21.001 3.5805 20.401 3 19.6675 3H19.6697Z"/></svg>
+          </a>
+          <a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=mohamedelgazar498@gmail.com&su=Hello%20Mohamed!" aria-label="Email" class="group border border-white/20 p-2.5 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white group-hover:text-black"><path d="m18.73 5.41l-1.28 1L12 10.46L6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64"/></svg>
+          </a>
+            <!-- Phone -->
+          <a href="tel:+201098963742" aria-label="Phone" class="group border border-white/20 p-2.5 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white group-hover:text-black">
+              <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1v3.5c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4.5 3 3.95 3.45 3.5 4 3.5H7.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Topbar spacer to prevent overlap -->
+  <div class="h-4 md:h-6"></div>
 
   <!-- Hero Section -->
-  <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-40" data-aos="fade-up">
-    <h2 class="text-[var(--primary)] text-lg mb-3 tracking-wide">Welcome to my world</h2>
-    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight max-w-4xl">
-      I'm <span class="text-[var(--primary)]">Mohamed Elgazar</span>, an Ai Engineer
-    </h1>
-    <p class="mt-6 text-[var(--subtext)] max-w-xl text-md sm:text-lg">
-      Crafting intelligent solutions with AI, data, and a splash of creativity. Let's innovate together.
-    </p>
-    <div class="flex gap-4 mt-10" data-aos="fade-up">
-  <a target="_blank" href="https://github.com/mo-elgazar74" aria-label="GitHub" class="group border border-white/20 p-3 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black">
-      <path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z" />
-    </svg>
-  </a>
-  <a target="_blank" href="https://www.linkedin.com/in/mohamed-elgazar-17b198264/" aria-label="LinkedIn" class="group border border-white/20 p-3 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black">
-      <path d="M18.3362 18.339H15.6707V14.1622C15.6707 13.1662 15.6505 11.8845 14.2817 11.8845C12.892 11.8845 12.6797 12.9683 12.6797 14.0887V18.339H10.0142V9.75H12.5747V10.9207H12.6092C12.967 10.2457 13.837 9.53325 15.1367 9.53325C17.8375 9.53325 18.337 11.3108 18.337 13.6245V18.339H18.3362ZM7.00373 8.57475C6.14573 8.57475 5.45648 7.88025 5.45648 7.026C5.45648 6.1725 6.14648 5.47875 7.00373 5.47875C7.85873 5.47875 8.55173 6.1725 8.55173 7.026C8.55173 7.88025 7.85798 8.57475 7.00373 8.57475ZM8.34023 18.339H5.66723V9.75H8.34023V18.339ZM19.6697 3H4.32923C3.59498 3 3.00098 3.5805 3.00098 4.29675V19.7033C3.00098 20.4202 3.59498 21 4.32923 21H19.6675C20.401 21 21.001 20.4202 21.001 19.7033V4.29675C21.001 3.5805 20.401 3 19.6675 3H19.6697Z" />
-    </svg>
-  </a>
-  <a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=mohamedelgazar498@gmail.com&su=Hello%20Mohamed!" aria-label="Email" class="group border border-white/20 p-3 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
-    <svg xmlns="http://www.w3.org/2000/svg" width="2.1em" height="2.1em" viewBox="0 0 24 24" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black">
-      <path fill="currentColor" d="m18.73 5.41l-1.28 1L12 10.46L6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64" />
-    </svg>
-  </a>
+  <section id="home" class="min-h-screen flex items-center px-4 pt-20" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+      <!-- Left: Intro -->
+      <div class="text-left hero-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs sm:text-sm text-[var(--subtext)] mb-5 
+          transition-all duration-300 hover:bg-[var(--primary)]/20 hover:border-[var(--primary)] hover:scale-105 hover:shadow-lg cursor-pointer">
+        <span class="w-2 h-2 rounded-full bg-[var(--primary)] transition-transform duration-300 group-hover:scale-125"></span>
+        Available for Freelance Work
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1]">
+          Hi, I'm <span class="text-[var(--primary)]"><br> Mohamed Elgazar</span>
+        </h1>
+        <p class="mt-3 text-2xl text-white/85">Ai Engineer | Data Analyst</p>
+        <p class="mt-6 text-[var(--subtext)] max-w-xl text-lg">
+          Passionate about crafting intelligent real-world solutions from model development and training to full-stack deployment, I combine AI, creativity, and modern tools to deliver impactful innovations.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#projects" class="px-5 py-3 rounded-lg bg-[var(--primary)] text-black font-semibold hover:bg-transparent hover:text-[var(--primary)] border border-[var(--primary)] transition">View My Work</a>
+          <a href="#contact" class="px-5 py-3 rounded-lg border border-white/20 text-white hover:border-[var(--primary)] hover:text-[var(--primary)] transition">Contact Me</a>
+        </div>
+        <!-- Tech row -->
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <span class="text-xs uppercase tracking-wider text-[var(--subtext)] mr-1">Tech I work with:</span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/python.svg" class="h-4" /><span class="text-sm">Python</span></span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/scikit-learn.svg" class="h-4" /><span class="text-sm">Scikit-learn</span></span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/TensorFlow.svg" class="h-4" /><span class="text-sm">TensorFlow</span></span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/pytorch.svg" class="h-4" /><span class="text-sm">PyTorch</span></span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/numpy.svg" class="h-4" /><span class="text-sm">NumPy</span></span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/Pandas.svg" class="h-4" /><span class="text-sm">Pandas</span></span>
+          <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10"><img src="svg/git.svg" class="h-4" /><span class="text-sm">Git / Github</span></span>
+        </div>
+      </div>
+
+      <!-- Right: Portrait with glow -->
+      <div class="relative mx-auto md:mx-0 md:ml-8 lg:ml-16 group hero-right">
+        <!-- Glow background -->
+        <div class="absolute inset-0 -z-10 blur-3xl opacity-60 md:opacity-80 bg-gradient-to-br from-[var(--primary)]/40 via-purple-600/20 to-transparent rounded-full w-[24rem] h-[24rem] md:w-[30rem] md:h-[30rem] translate-x-6 -translate-y-2"></div>
+        <!-- Hover shine -->
+        <div class="pointer-events-none absolute inset-0 -z-10 opacity-0 group-hover:opacity-80 transition-opacity duration-500">
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[20rem] h-[20rem] md:w-[32rem] md:h-[32rem] rounded-full blur-3xl bg-gradient-to-br from-[var(--primary)]/60 via-purple-600/40 to-transparent"></div>
+        </div>
+        <!-- Circle image -->
+        <div class="relative w-64 h-64 md:w-[26rem] md:h-[26rem] rounded-full ring-2 ring-white/10 border-2 border-[var(--primary)]/25 transition-all duration-300 overflow-hidden shadow-[0_0_90px_rgba(247,127,0,0.28)] hover:shadow-[0_0_160px_rgba(247,127,0,0.55)] hover:border-[var(--primary)]/60 transform hover:-translate-y-2">
+          <!-- Profile image -->
+          <img src="assets/photo_2024-10-27_21-55-31.jpg" alt="Portrait" class="w-full h-full object-cover" />
+        </div>
+      </div>
 </div>
   </section>
 
-  <!-- Where Intelligence Meets Code -->
-<section id="skills" class="py-10 sm:py-16 md:py-20 bg-[#161618]" data-aos="fade-up">
+  <section id="about" class="py-12 sm:py-16 md:py-20 ">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6">
+  
+      <h2 class="text-center text-3xl sm:text-4xl md:text-5xl font-bold mb-12 text-[var(--primary)]" 
+          data-aos="zoom-in" data-aos-duration="1200">
+        About Me
+      </h2>
+  
+      <div class="rounded-2xl border border-gray-700 bg-[#0e0e10]/90 shadow-[0_0_30px_rgba(0,0,0,0.6)] p-6 sm:p-10 lg:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          
+          <!-- Left Side -->
+          <div class="lg:col-span-2 flex flex-col h-full">
+            <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-[var(--text)]"
+                data-aos="fade-down" data-aos-duration="1200">
+                Ai Engineer | Data Analyst
+            </h3>
+  
+            <p class="mb-4 text-[var(--subtext)] leading-relaxed"
+               data-aos="fade-right" data-aos-delay="200" data-aos-duration="1200">
+              I'm <b class="text-[var(--primary)]">Mohamed Elgazar</b>, an AI Engineer with 2+ years of experience passionate about crafting intelligent solutions that turn data into impactful real-world applications. With hands-on experience in machine learning, deep learning, and data analysis, I specialize in building and deploying end-to-end AI systems from model training to cloud deployment.
+            </p>
+<!--   
+            <p class="mb-6 text-[var(--subtext)] leading-relaxed"
+               data-aos="fade-right" data-aos-delay="400" data-aos-duration="1200">
+               My journey also includes full-stack development skills, enabling me to create seamless interfaces and integrations that bring AI closer to people through intuitive applications. <b class="text-[var(--primary)]">React</b>, <b class="text-[var(--primary)]">Next.js</b>, and modern backend technologies that deliver scalable, high-performance applications.
+            </p>
+   -->
+            <!-- Development Philosophy -->
+            <div class="rounded-2xl bg-[#1c1c20] border border-[var(--primary)]/30 p-8 shadow-md 
+                        transition-all duration-500 hover:shadow-[0_0_35px_rgba(247,127,0,0.4)] 
+                        hover:border-[var(--primary)]/60 hover:-translate-y-2 flex-1 flex flex-col"
+                data-aos="fade-left" data-aos-delay="600" data-aos-duration="1200">
+              <h4 class="text-lg font-semibold mb-4 text-[var(--text)]">AI Engineering Approach</h4>
+              <ul class="space-y-2 text-[var(--subtext)]">
+                <li>✔ Real-world problem solving: building solutions that address everyday challenges</li>
+                <li>✔ Iterative improvement: start small, improve fast, scale reliably</li>
+                <li>✔ User-focused design: prioritizing usability and value over vanity metrics</li>
+                <li>✔ Data-centric approach: ensuring clean and reliable data pipelines</li>
+                <li>✔ End-to-end systems: from model research to scalable cloud deployment</li>
+                <li>✔ Balanced optimization: accuracy, latency, and cost efficiency together</li>
+                <li>✔ Responsible AI: explainability, fairness, and ethical standards by default</li>
+                <li>✔ Continuous learning: staying updated with the latest AI and data trends </li>
+                <li>✔ Adaptability: quickly learning and applying new tools, frameworks, and concepts </li>
+                <li>✔ Collaboration: working effectively in cross-functional teams </li>
+                <li>✔ Communication: translating complex technical insights into business value </li>
+              </ul>
+            </div>
+          </div>
+  
+          <!-- Right Side -->
+          <div class="flex flex-col space-y-6 h-full">
+            <!-- Personal Info Box -->
+            <div class="rounded-2xl bg-[#1c1c20] border border-[var(--primary)]/30 p-8 shadow-md 
+                        transition-all duration-500 hover:shadow-[0_0_35px_rgba(247,127,0,0.4)] 
+                        hover:border-[var(--primary)]/60 hover:-translate-y-2 flex-1" 
+                data-aos="fade-up" data-aos-delay="400">
+  
+              <h3 class="text-xl font-semibold mb-6 text-[var(--primary)]">Personal Info</h3>
+  
+              <ul class="space-y-6">
+                <!-- Name -->
+                <li class="flex items-center gap-4">
+                  <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2f] shrink-0">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+                        alt="Name Icon" class="w-6 h-6 object-contain" />
+                  </span>
+                  <div>
+                    <p class="text-sm text-gray-400">Name</p>
+                    <p class="font-medium text-white text-base">Mohamed Elgazar</p>
+                  </div>
+                </li>
+  
+                <!-- Email -->
+                <li class="flex items-center gap-4">
+                  <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2f] shrink-0">
+                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" 
+                        alt="Email Icon" class="w-6 h-6 object-contain" />
+                  </span>
+                  <div>
+                    <p class="text-sm text-gray-400">Email</p>
+                    <p class="font-medium text-white text-base break-all">mohedelgazar498@gmail.com</p>
+                  </div>
+                </li>
+  
+                <!-- Location -->
+                <li class="flex items-center gap-4">
+                  <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2f] shrink-0">
+                    <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" 
+                        alt="Location Icon" class="w-6 h-6 object-contain" />
+                  </span>
+                  <div>
+                    <p class="text-sm text-gray-400">Location</p>
+                    <p class="font-medium text-white text-base">Tanta, Egypt</p>
+                  </div>
+                </li>
+  
+                <!-- Status -->
+                <li class="flex items-center gap-4">
+                  <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2f] shrink-0">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1827/1827504.png" 
+                        alt="Status Icon" class="w-6 h-6 object-contain" />
+                  </span>
+                  <div>
+                    <p class="text-sm text-gray-400">Status</p>
+                    <p class="font-medium text-white text-base">Open to Work</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+  
+            <!-- Current Focus -->
+            <div class="rounded-2xl bg-[#1c1c20] border border-[var(--primary)]/30 p-8 shadow-md 
+                        transition-all duration-500 hover:shadow-[0_0_35px_rgba(247,127,0,0.4)] 
+                        hover:border-[var(--primary)]/60 hover:-translate-y-2 flex-1 flex flex-col"
+                data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200"> <!-- 1000 -->
+              <h4 class="text-lg font-semibold mb-4 text-[var(--text)]">Current Focus</h4>
+              <p class="text-[var(--subtext)] leading-relaxed">
+                Currently exploring NLP, Computer Vision, and MLOps (MLflow, Hugging Face), while advancing Azure AI Fundamentals.
+              </p>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Experience & Education -->
+<section id="timeline" class="py-20">
+  <h2 class="text-center text-4xl font-bold mb-16 text-[var(--primary)]" data-aos="zoom-in">
+    Experience & Education
+  </h2>
+
+  <div class="relative max-w-5xl mx-auto">
+
+    <div class="absolute left-1/2 top-0 w-1 h-full bg-gray-500 transform -translate-x-1/2"></div>
+
+    <!-- Experience -->
+    <div class="mb-12 flex justify-start items-center w-full" data-aos="fade-right">
+      <div class="w-1/2 pr-8 text-right">
+        <h3 class="text-2xl font-bold text-[var(--primary)]">Full-Time Developer at Meshkode</h3>
+        <p class="flex items-center justify-end gap-2 text-[var(--subtext)] text-sm mt-1">
+          <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" class="w-4 h-4 filter brightness-0 invert" /> Aug 2025 - Present
+          <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" class="w-4 h-4 ml-4 filter brightness-0 invert" /> Remote
+        </p>
+        <p class="text-[var(--text)] text-base text-justify mt-3 leading-relaxed">
+          Contributing to AI-related tasks and research while also supporting the development and optimization of the company’s website.
+        </p>
+      </div>
+      <!-- النقطة -->
+      <div class="w-4 h-4 bg-[var(--primary)] rounded-full shadow-lg"></div>
+      <div class="w-1/2"></div>
+    </div>
+
+    <!-- Education -->
+    <div class="mb-12 flex justify-end items-center w-full" data-aos="fade-left" data-aos-delay="300">
+      <div class="w-1/2"></div>
+      <div class="w-4 h-4 bg-[var(--primary)] rounded-full shadow-lg"></div>
+      <div class="w-1/2 pl-8 text-left">
+        <h3 class="text-2xl font-bold text-[var(--primary)]">Bachelor's in Ai Engineering</h3>
+        <p class="flex items-center gap-2 text-[var(--subtext)] text-sm mt-1">
+          <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" class="w-4 h-4 filter brightness-0 invert" /> 2022 - 2027 (expected)
+          <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" class="w-4 h-4 ml-4 filter brightness-0 invert" /> Tanta University, Egypt
+        </p>
+        <p class="text-[var(--text)] text-base text-justify mt-3 leading-relaxed">
+            Pursuing a Bachelor's in AI Engineering with academic focus on NLP, Computer Vision, and applied AI projects.</p>
+      </div>
+    </div>
+
+<!-- Another Experience -->
+<div class="mb-12 flex justify-start items-center w-full" data-aos="fade-right" data-aos-delay="600">
+  <div class="w-1/2 pr-8 text-right">
+    <h3 class="text-2xl font-bold text-[var(--primary)]">
+      ML Engineer DEPI Training Program
+    </h3>
+    <p class="flex items-center justify-end gap-2 text-[var(--subtext)] text-sm mt-1">
+      <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" 
+          class="w-4 h-4 filter brightness-0 invert" /> Jun 2025 – Jan 2026
+      <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" 
+          class="w-4 h-4 ml-4 filter brightness-0 invert" /> Remote
+    </p>
+    <p class="text-[var(--text)] text-base text-justify mt-3 leading-relaxed">
+      Microsoft AI & Data Science Training Program (under EYouth Co.), covering a full stack of AI topics including Python for Data Science, Machine Learning, Deep Learning, NLP with attention models, Computer Vision, and Azure AI Fundamentals. Gained hands-on experience with MLOps tools (MLflow, Hugging Face) and deployed end-to-end ML solutions through a capstone project.
+    </p>
+  </div>
+  <div class="w-4 h-4 bg-[var(--primary)] rounded-full shadow-lg"></div>
+  <div class="w-1/2"></div>
+</div>
+
+
+  </div>
+</section>
+
+<section id="tech" class="py-10 sm:py-16 md:py-20 " data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6">
+      <h2 class="text-center text-4xl font-bold mb-16 text-[var(--primary)]" data-aos="zoom-in">
+      Tools & Technologies</h2>
+      <div class="stack-scroll">
+        <div class="scroll-track">
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/python.svg" class="h-8" /> <span class="text-lg font-medium">Python</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/sql.svg" class="h-8" /> <span class="text-lg font-medium">SQL</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/pytorch.svg" class="h-8" /> <span class="text-lg font-medium">PyTorch</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/docker.svg" class="h-8" /> <span class="text-lg font-medium">Docker</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/aws.svg" class="h-8" /> <span class="text-lg font-medium">AWS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/azure.svg" class="h-8" /> <span class="text-lg font-medium">Azure</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/flask.svg" class="h-8" /> <span class="text-lg font-medium">Flask</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/canva.svg" class="h-8" /> <span class="text-lg font-medium">Canva</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/figma.svg" class="h-8" /> <span class="text-lg font-medium">Figma</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/colab.svg" class="h-8" /> <span class="text-lg font-medium">Colab</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/huggingface.svg" class="h-8" /> <span class="text-lg font-medium">Hugging Face</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/git.svg" class="h-8" /> <span class="text-lg font-medium">Git</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/github.svg" class="h-8" /> <span class="text-lg font-medium">GitHub</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/kaggle.svg" class="h-8" /> <span class="text-lg font-medium">Kaggle</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/javaScript.svg" class="h-8" /> <span class="text-lg font-medium">JS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/jupyter.svg" class="h-8" /> <span class="text-lg font-medium">Jupyter</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/cursor.svg" class="h-8" /> <span class="text-lg font-medium">Cursor</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/mongodb.svg" class="h-8" /> <span class="text-lg font-medium">MongoDB</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/fastapi.svg" class="h-8" /> <span class="text-lg font-medium">FastAPI</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Linux.svg" class="h-8" /> <span class="text-lg font-medium">Linux</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/vscode.svg" class="h-8" /> <span class="text-lg font-medium">VSCode</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/TensorFlow.svg" class="h-8" /> <span class="text-lg font-medium">TensorFlow</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Ubuntu.svg" class="h-8" /> <span class="text-lg font-medium">Ubuntu</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/numpy.svg" class="h-8" /> <span class="text-lg font-medium">Numpy</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Pandas.svg" class="h-8" /> <span class="text-lg font-medium">Pandas</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/typeScript.svg" class="h-8" /> <span class="text-lg font-medium">TypeScript</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/React.svg" class="h-8" /> <span class="text-lg font-medium">React</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/tailwindcss.svg" class="h-8" /> <span class="text-lg font-medium">Tailwind CSS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/HTML5.svg" class="h-8" /> <span class="text-lg font-medium">HTML</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/CSS3.svg" class="h-8" /> <span class="text-lg font-medium">CSS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Bash.svg" class="h-8" /> <span class="text-lg font-medium">Bash</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/obsidian.svg" class="h-8" /> <span class="text-lg font-medium">Obsidian</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/mysql.svg" class="h-8" /> <span class="text-lg font-medium">MySQL</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/keras.svg" class="h-8" /> <span class="text-lg font-medium">Keras</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/obs.svg" class="h-8" /> <span class="text-lg font-medium">OBS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/matplotlib.svg" class="h-8" /> <span class="text-lg font-medium">Matplotlib</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/seaborn.svg" class="h-8" /> <span class="text-lg font-medium">Seaborn</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/nodejs.svg" class="h-8" /> <span class="text-lg font-medium">NodeJS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/plotly.svg" class="h-8" /> <span class="text-lg font-medium">Plotly</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/ollama.svg" class="h-8" /> <span class="text-lg font-medium">Ollama</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/openwebui.svg" class="h-8" /> <span class="text-lg font-medium">OpenWeb UI</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/pycharm.svg" class="h-8" /> <span class="text-lg font-medium">PyCharm</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/opencv.svg" class="h-8" /> <span class="text-lg font-medium">OpenCV</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/scikit-learn.svg" class="h-8" /> <span class="text-lg font-medium">Scikit-learn</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/streamlit.svg" class="h-8" /> <span class="text-lg font-medium">Streamlit</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/vitejs.svg" class="h-8" /> <span class="text-lg font-medium">ViteJS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/vercel.svg" class="h-8" /> <span class="text-lg font-medium">Vercel</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Stack Overflow.svg" class="h-8" /> <span class="text-lg font-medium">Stack Overflow</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/postman.svg" class="h-8" /> <span class="text-lg font-medium">Postman</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/npm.svg" class="h-8" /> <span class="text-lg font-medium">NPM</span></div>
+        </div>
+
+        <div class="scroll-track">
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/python.svg" class="h-8" /> <span class="text-lg font-medium">Python</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/sql.svg" class="h-8" /> <span class="text-lg font-medium">SQL</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/pytorch.svg" class="h-8" /> <span class="text-lg font-medium">PyTorch</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/docker.svg" class="h-8" /> <span class="text-lg font-medium">Docker</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/aws.svg" class="h-8" /> <span class="text-lg font-medium">AWS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/azure.svg" class="h-8" /> <span class="text-lg font-medium">Azure</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/flask.svg" class="h-8" /> <span class="text-lg font-medium">Flask</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/canva.svg" class="h-8" /> <span class="text-lg font-medium">Canva</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/figma.svg" class="h-8" /> <span class="text-lg font-medium">Figma</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/colab.svg" class="h-8" /> <span class="text-lg font-medium">Colab</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/huggingface.svg" class="h-8" /> <span class="text-lg font-medium">Hugging Face</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/git.svg" class="h-8" /> <span class="text-lg font-medium">Git</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/github.svg" class="h-8" /> <span class="text-lg font-medium">GitHub</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/kaggle.svg" class="h-8" /> <span class="text-lg font-medium">Kaggle</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/javaScript.svg" class="h-8" /> <span class="text-lg font-medium">JS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/jupyter.svg" class="h-8" /> <span class="text-lg font-medium">Jupyter</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/cursor.svg" class="h-8" /> <span class="text-lg font-medium">Cursor</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/mongodb.svg" class="h-8" /> <span class="text-lg font-medium">MongoDB</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/fastapi.svg" class="h-8" /> <span class="text-lg font-medium">FastAPI</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Linux.svg" class="h-8" /> <span class="text-lg font-medium">Linux</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/vscode.svg" class="h-8" /> <span class="text-lg font-medium">VSCode</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/TensorFlow.svg" class="h-8" /> <span class="text-lg font-medium">TensorFlow</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Ubuntu.svg" class="h-8" /> <span class="text-lg font-medium">Ubuntu</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/numpy.svg" class="h-8" /> <span class="text-lg font-medium">Numpy</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Pandas.svg" class="h-8" /> <span class="text-lg font-medium">Pandas</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/typeScript.svg" class="h-8" /> <span class="text-lg font-medium">TypeScript</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/React.svg" class="h-8" /> <span class="text-lg font-medium">React</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/tailwindcss.svg" class="h-8" /> <span class="text-lg font-medium">Tailwind CSS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/HTML5.svg" class="h-8" /> <span class="text-lg font-medium">HTML</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/CSS3.svg" class="h-8" /> <span class="text-lg font-medium">CSS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Bash.svg" class="h-8" /> <span class="text-lg font-medium">Bash</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/obsidian.svg" class="h-8" /> <span class="text-lg font-medium">Obsidian</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/mysql.svg" class="h-8" /> <span class="text-lg font-medium">MySQL</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/keras.svg" class="h-8" /> <span class="text-lg font-medium">Keras</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/obs.svg" class="h-8" /> <span class="text-lg font-medium">OBS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/matplotlib.svg" class="h-8" /> <span class="text-lg font-medium">Matplotlib</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/seaborn.svg" class="h-8" /> <span class="text-lg font-medium">Seaborn</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/nodejs.svg" class="h-8" /> <span class="text-lg font-medium">NodeJS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/plotly.svg" class="h-8" /> <span class="text-lg font-medium">Plotly</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/ollama.svg" class="h-8" /> <span class="text-lg font-medium">Ollama</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/openwebui.svg" class="h-8" /> <span class="text-lg font-medium">OpenWeb UI</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/pycharm.svg" class="h-8" /> <span class="text-lg font-medium">PyCharm</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/opencv.svg" class="h-8" /> <span class="text-lg font-medium">OpenCV</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/scikit-learn.svg" class="h-8" /> <span class="text-lg font-medium">Scikit-learn</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/streamlit.svg" class="h-8" /> <span class="text-lg font-medium">Streamlit</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/vitejs.svg" class="h-8" /> <span class="text-lg font-medium">ViteJS</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/vercel.svg" class="h-8" /> <span class="text-lg font-medium">Vercel</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/Stack Overflow.svg" class="h-8" /> <span class="text-lg font-medium">Stack Overflow</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/postman.svg" class="h-8" /> <span class="text-lg font-medium">Postman</span></div>
+          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#6d6262 ] hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--primary)]/60 hover:shadow-[0_0_25px_rgba(247,127,0,0.4)]"><img src="svg/npm.svg" class="h-8" /> <span class="text-lg font-medium">NPM</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Where Intelligence Meets Code -->
+<section id="skills" class="py-10 sm:py-16 md:py-20 " data-aos="fade-up">
   <div class="max-w-6xl mx-auto px-3 sm:px-6">
-    <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-14">💡 Where Intelligence Meets Code</h2>
+    <h2 class="text-center text-4xl font-bold mb-16 text-[var(--primary)]" data-aos="zoom-in">
+    Where Intelligence Meets Code</h2>
     <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
       <!-- ML Algorithms -->
       <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
         <div class="flex items-center gap-3 mb-4">
-          <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">📚</div>
+          <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">📚</div>
           <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">ML Algorithms</h3>
         </div>
         <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -246,7 +629,7 @@
       <!-- Data Preprocessing -->
       <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
         <div class="flex items-center gap-3 mb-4">
-          <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🧪</div>
+          <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🧪</div>
           <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Data Preprocessing</h3>
         </div>
         <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -257,7 +640,7 @@
       <!-- Deep Learning / CV -->
       <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
         <div class="flex items-center gap-3 mb-4">
-          <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🧠</div>
+          <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🧠</div>
           <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Deep Learning</h3>
         </div>
         <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -268,7 +651,7 @@
             <!-- Data Visualization -->
             <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
               <div class="flex items-center gap-3 mb-4">
-                <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">📊</div>
+                <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">📊</div>
                 <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Data Visualization</h3>
               </div>
               <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -279,7 +662,7 @@
             <!-- NLP & LLMs -->
             <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
               <div class="flex items-center gap-3 mb-4">
-                <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🗣️</div>
+                <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🗣️</div>
                 <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">NLP & LLMs</h3>
               </div>
               <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -290,7 +673,7 @@
             <!-- Model Deployment -->
             <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
               <div class="flex items-center gap-3 mb-4">
-                <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🚀</div>
+                <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🚀</div>
                 <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Model Deployment</h3>
               </div>
               <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -301,7 +684,7 @@
             <!-- Web Scraping -->
             <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
               <div class="flex items-center gap-3 mb-4">
-                <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🕷️</div>
+                <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🕷️</div>
                 <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Web Scraping</h3>
               </div>
               <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -312,7 +695,7 @@
             <!-- Web & API Development -->  
             <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
               <div class="flex items-center gap-3 mb-4">
-                <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🌐</div>
+                <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🌐</div>
                 <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Web & API Development</h3>
               </div>
               <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -323,7 +706,7 @@
             <!-- Full-Stack Development -->
             <div class="glass rounded-xl p-6 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(247,127,0,0.6)] hover:bg-white/5 group">
               <div class="flex items-center gap-3 mb-4">
-                <div class="bg-[#161618] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🧩</div>
+                <div class="bg-[#6d6262 ] text-white w-12 h-12 flex items-center justify-center rounded-full text-xl group-hover:bg-[var(--primary)] group-hover:text-black transition">🧩</div>
                 <h3 class="text-xl font-semibold group-hover:text-[var(--primary)] transition">Full-Stack Development</h3>
               </div>
               <p class="text-[var(--subtext)] text-sm leading-relaxed">
@@ -334,178 +717,201 @@
   </div>
 </section>
 
-<section id="tech" class="py-10 sm:py-16 md:py-20 bg-[#0f0f11]" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto px-3 sm:px-6">
-      <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-14 text-white">⚙️ Tools & Technologies</h2>
-      <div class="stack-scroll">
-        <div class="scroll-track">
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/python.svg" class="h-8" /> <span class="text-lg font-medium">Python</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/sql.svg" class="h-8" /> <span class="text-lg font-medium">SQL</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/pytorch.svg" class="h-8" /> <span class="text-lg font-medium">PyTorch</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/docker.svg" class="h-8" /> <span class="text-lg font-medium">Docker</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/aws.svg" class="h-8" /> <span class="text-lg font-medium">AWS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/azure.svg" class="h-8" /> <span class="text-lg font-medium">Azure</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/flask.svg" class="h-8" /> <span class="text-lg font-medium">Flask</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/canva.svg" class="h-8" /> <span class="text-lg font-medium">Canva</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/figma.svg" class="h-8" /> <span class="text-lg font-medium">Figma</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/colab.svg" class="h-8" /> <span class="text-lg font-medium">Colab</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/huggingface.svg" class="h-8" /> <span class="text-lg font-medium">Hugging Face</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/git.svg" class="h-8" /> <span class="text-lg font-medium">Git</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/github.svg" class="h-8" /> <span class="text-lg font-medium">GitHub</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/kaggle.svg" class="h-8" /> <span class="text-lg font-medium">Kaggle</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/javaScript.svg" class="h-8" /> <span class="text-lg font-medium">JS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/jupyter.svg" class="h-8" /> <span class="text-lg font-medium">Jupyter</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/cursor.svg" class="h-8" /> <span class="text-lg font-medium">Cursor</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/mongodb.svg" class="h-8" /> <span class="text-lg font-medium">MongoDB</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/fastapi.svg" class="h-8" /> <span class="text-lg font-medium">FastAPI</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Linux.svg" class="h-8" /> <span class="text-lg font-medium">Linux</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/vscode.svg" class="h-8" /> <span class="text-lg font-medium">VSCode</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/TensorFlow.svg" class="h-8" /> <span class="text-lg font-medium">TensorFlow</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Ubuntu.svg" class="h-8" /> <span class="text-lg font-medium">Ubuntu</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/numpy.svg" class="h-8" /> <span class="text-lg font-medium">Numpy</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Pandas.svg" class="h-8" /> <span class="text-lg font-medium">Pandas</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/typeScript.svg" class="h-8" /> <span class="text-lg font-medium">TypeScript</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/React.svg" class="h-8" /> <span class="text-lg font-medium">React</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/tailwindcss.svg" class="h-8" /> <span class="text-lg font-medium">Tailwind CSS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/HTML5.svg" class="h-8" /> <span class="text-lg font-medium">HTML</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/CSS3.svg" class="h-8" /> <span class="text-lg font-medium">CSS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Bash.svg" class="h-8" /> <span class="text-lg font-medium">Bash</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/obsidian.svg" class="h-8" /> <span class="text-lg font-medium">Obsidian</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/mysql.svg" class="h-8" /> <span class="text-lg font-medium">MySQL</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/keras.svg" class="h-8" /> <span class="text-lg font-medium">Keras</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/obs.svg" class="h-8" /> <span class="text-lg font-medium">OBS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/matplotlib.svg" class="h-8" /> <span class="text-lg font-medium">Matplotlib</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/seaborn.svg" class="h-8" /> <span class="text-lg font-medium">Seaborn</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/nodejs.svg" class="h-8" /> <span class="text-lg font-medium">NodeJS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/plotly.svg" class="h-8" /> <span class="text-lg font-medium">Plotly</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/ollama.svg" class="h-8" /> <span class="text-lg font-medium">Ollama</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/openwebui.svg" class="h-8" /> <span class="text-lg font-medium">OpenWeb UI</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/pycharm.svg" class="h-8" /> <span class="text-lg font-medium">PyCharm</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/opencv.svg" class="h-8" /> <span class="text-lg font-medium">OpenCV</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/scikit-learn.svg" class="h-8" /> <span class="text-lg font-medium">Scikit-learn</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/streamlit.svg" class="h-8" /> <span class="text-lg font-medium">Streamlit</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/vitejs.svg" class="h-8" /> <span class="text-lg font-medium">ViteJS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/vercel.svg" class="h-8" /> <span class="text-lg font-medium">Vercel</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Stack Overflow.svg" class="h-8" /> <span class="text-lg font-medium">Stack Overflow</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/postman.svg" class="h-8" /> <span class="text-lg font-medium">Postman</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/npm.svg" class="h-8" /> <span class="text-lg font-medium">NPM</span></div>
-        </div>
-
-        <div class="scroll-track">
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/python.svg" class="h-8" /> <span class="text-lg font-medium">Python</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/sql.svg" class="h-8" /> <span class="text-lg font-medium">SQL</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/pytorch.svg" class="h-8" /> <span class="text-lg font-medium">PyTorch</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/docker.svg" class="h-8" /> <span class="text-lg font-medium">Docker</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/aws.svg" class="h-8" /> <span class="text-lg font-medium">AWS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/azure.svg" class="h-8" /> <span class="text-lg font-medium">Azure</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/flask.svg" class="h-8" /> <span class="text-lg font-medium">Flask</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/canva.svg" class="h-8" /> <span class="text-lg font-medium">Canva</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/figma.svg" class="h-8" /> <span class="text-lg font-medium">Figma</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/colab.svg" class="h-8" /> <span class="text-lg font-medium">Colab</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/huggingface.svg" class="h-8" /> <span class="text-lg font-medium">Hugging Face</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/git.svg" class="h-8" /> <span class="text-lg font-medium">Git</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/github.svg" class="h-8" /> <span class="text-lg font-medium">GitHub</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/kaggle.svg" class="h-8" /> <span class="text-lg font-medium">Kaggle</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/javaScript.svg" class="h-8" /> <span class="text-lg font-medium">JS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/jupyter.svg" class="h-8" /> <span class="text-lg font-medium">Jupyter</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/cursor.svg" class="h-8" /> <span class="text-lg font-medium">Cursor</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/mongodb.svg" class="h-8" /> <span class="text-lg font-medium">MongoDB</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/fastapi.svg" class="h-8" /> <span class="text-lg font-medium">FastAPI</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Linux.svg" class="h-8" /> <span class="text-lg font-medium">Linux</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/vscode.svg" class="h-8" /> <span class="text-lg font-medium">VSCode</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/TensorFlow.svg" class="h-8" /> <span class="text-lg font-medium">TensorFlow</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Ubuntu.svg" class="h-8" /> <span class="text-lg font-medium">Ubuntu</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/numpy.svg" class="h-8" /> <span class="text-lg font-medium">Numpy</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Pandas.svg" class="h-8" /> <span class="text-lg font-medium">Pandas</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/typeScript.svg" class="h-8" /> <span class="text-lg font-medium">TypeScript</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/React.svg" class="h-8" /> <span class="text-lg font-medium">React</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/tailwindcss.svg" class="h-8" /> <span class="text-lg font-medium">Tailwind CSS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/HTML5.svg" class="h-8" /> <span class="text-lg font-medium">HTML</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/CSS3.svg" class="h-8" /> <span class="text-lg font-medium">CSS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Bash.svg" class="h-8" /> <span class="text-lg font-medium">Bash</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/obsidian.svg" class="h-8" /> <span class="text-lg font-medium">Obsidian</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/mysql.svg" class="h-8" /> <span class="text-lg font-medium">MySQL</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/keras.svg" class="h-8" /> <span class="text-lg font-medium">Keras</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/obs.svg" class="h-8" /> <span class="text-lg font-medium">OBS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/matplotlib.svg" class="h-8" /> <span class="text-lg font-medium">Matplotlib</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/seaborn.svg" class="h-8" /> <span class="text-lg font-medium">Seaborn</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/nodejs.svg" class="h-8" /> <span class="text-lg font-medium">NodeJS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/plotly.svg" class="h-8" /> <span class="text-lg font-medium">Plotly</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/ollama.svg" class="h-8" /> <span class="text-lg font-medium">Ollama</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/openwebui.svg" class="h-8" /> <span class="text-lg font-medium">OpenWeb UI</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/pycharm.svg" class="h-8" /> <span class="text-lg font-medium">PyCharm</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/opencv.svg" class="h-8" /> <span class="text-lg font-medium">OpenCV</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/scikit-learn.svg" class="h-8" /> <span class="text-lg font-medium">Scikit-learn</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/streamlit.svg" class="h-8" /> <span class="text-lg font-medium">Streamlit</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/vitejs.svg" class="h-8" /> <span class="text-lg font-medium">ViteJS</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/vercel.svg" class="h-8" /> <span class="text-lg font-medium">Vercel</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/Stack Overflow.svg" class="h-8" /> <span class="text-lg font-medium">Stack Overflow</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/postman.svg" class="h-8" /> <span class="text-lg font-medium">Postman</span></div>
-          <div class="flex items-center gap-3 min-w-fit px-6 py-4 rounded-lg bg-[#0f0f11] hover:-translate-y-2 transition-all duration-300 cursor-pointer"><img src="svg/npm.svg" class="h-8" /> <span class="text-lg font-medium">NPM</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
 <!-- Projects -->
-<section id="projects" class="py-10 sm:py-16 md:py-20" data-aos="fade-up">
-  <div class="max-w-6xl mx-auto px-3 sm:px-6">
-    <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-14">🚀 Recent Work</h2>
-    <!-- Shared grid for both projects -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-      <!-- Project 1 -->
-      <div class="glass rounded-2xl overflow-hidden hover:scale-[1.02] transition">
-        <img src="assets/brain.jpeg" alt="Project Image" class="w-full h-52 object-cover" />
-        <div class="p-6">
-          <h3 class="text-2xl font-bold">Brain Tumor Classification and Care</h3>
+<!-- Projects -->
+<!-- Projects -->
+<section id="projects" class="py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-center text-4xl font-bold mb-16 text-[var(--primary)]" data-aos="zoom-in">
+      Featured Projects
+    </h2>
+
+    <div class="flex flex-col gap-8 ">
+      <!-- Project Card 1 -->
+      <div class="glass group flex flex-col md:flex-row items-center glass rounded-2xl overflow-hidden 
+                  transform transition-transform duration-300 ease-out 
+                  hover:-translate-y-2 hover:shadow-[0_4px_20px_var(--primary)] hover:scale-105" >
+        <!-- Left Image -->
+        <img src="assets/brain.jpeg" alt="Project Image" class="w-full md:w-1/2 h-56 object-cover">
+        <!-- Right Content -->
+        <div class="p-6 md:w-1/2">
+          <h3 class="text-2xl font-bold text-[var(--text)]">Brain Tumor Classification and Care</h3>
           <p class="text-[var(--subtext)] mt-2 text-sm">
             Detects brain tumors from MRI scans using deep learning, helping doctors diagnose and support patient recovery.
           </p>
-          <a href="https://github.com/mo-elgazar74/Brain-Tumor-Classification-and-Care" target="_blank" class="inline-block mt-4 text-[var(--primary)] font-semibold hover:underline">View on GitHub →</a>
+          <div class="mt-4 flex gap-3">
+
+            <!-- Live Demo Button -->
+            <!-- <a href="https://brain-tumor-demo-link.com" target="_blank" 
+              class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--primary)] text-black font-semibold transition hover:opacity-90">
+              External Link Icon
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M14 3h7m0 0v7m0-7L10 14m-4 7h12a2 2 0 002-2V9" />
+              </svg>
+              Live Demo
+            </a>
+            Source Button -->
+
+            <a href="https://github.com/mo-elgazar74/Brain-Tumor-Classification-and-Care" target="_blank" 
+              class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--primary)] text-[var(--primary)] font-semibold transition hover:bg-[var(--primary)] hover:text-black">
+              <!-- GitHub Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.42c.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.09-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              Source
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Project 2 -->
-      <div class="glass rounded-2xl overflow-hidden hover:scale-[1.02] transition">
-        <img src="assets/expense2.jpg" alt="Project Image" class="w-full h-52 object-cover" />
-        <div class="p-6">
-          <h3 class="text-2xl font-bold">Expenses Tracker</h3>
+<!-- Project Card 2 -->
+
+    <div class="glass group flex flex-col md:flex-row items-center glass rounded-2xl overflow-hidden 
+                  transform transition-transform duration-300 ease-out 
+                  hover:-translate-y-2 hover:shadow-[0_4px_20px_var(--primary)] hover:scale-105">
+    <!-- Left Image -->
+    <img src="assets/istockphoto-1387900612-612x612.jpg" alt="Project Image" class="w-full md:w-1/2 h-56 object-cover">
+    
+    <!-- Right Content -->
+      <div class="p-6 md:w-1/2">
+          <h3 class="text-2xl font-bold text-[var(--text)]">SVM Binary Classification</h3>
+          <p class="text-[var(--subtext)] mt-2 text-sm">
+            This project applies SVM for binary classification using different kernels (linear, polynomial, RBF) in Python, with a custom class for training, evaluation, and visualizing decision boundaries.
+          <div class="mt-4 flex gap-3">
+              <!-- Live Demo Button -->
+              <a href="https://www.kaggle.com/code/mohamedelgazar74/svm-classification" target="_blank" 
+                  class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--primary)] text-black font-semibold transition hover:opacity-90">
+                  <!-- External Link Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M14 3h7m0 0v7m0-7L10 14m-4 7h12a2 2 0 002-2V9" />
+                  </svg>
+                  View on Kaggle
+              </a>
+              <!-- Source Button -->
+              <a href="https://github.com/mo-elgazar74/SVM-Classification-From-Scratch" target="_blank" 
+                  class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--primary)] text-[var(--primary)] font-semibold transition hover:bg-[var(--primary)] hover:text-black">
+                  <!-- GitHub Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.42c.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.09-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  Source
+              </a>
+          </div>
+      </div>
+    </div>
+
+      <!-- Project Card 3 -->
+    <div class="glass group flex flex-col md:flex-row items-center glass rounded-2xl overflow-hidden 
+                  transform transition-transform duration-300 ease-out 
+                  hover:-translate-y-2 hover:shadow-[0_4px_20px_var(--primary)] hover:scale-105">
+    <!-- Left Image -->
+    <img src="assets/chatbot.png" alt="Project Image" class="w-full md:w-1/2 h-56 object-cover">
+    
+    <!-- Right Content -->
+      <div class="p-6 md:w-1/2">
+          <h3 class="text-2xl font-bold text-[var(--text)]">Client-Server Chatbot</h3>
+          <p class="text-[var(--subtext)] mt-2 text-sm">
+            This project utilizes the Groq API and the Llama 3 model to power an AI-driven chatbot. It enhances my skills in Operating Systems (OS) while integrating real-time communication and secure API handling for seamless client-server interactions.
+          <div class="mt-4 flex gap-3">
+              <!-- Live Demo Button -->
+              <!-- <a href="https://www.kaggle.com/code/mohamedelgazar74/svm-classification" target="_blank" 
+                  class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--primary)] text-black font-semibold transition hover:opacity-90">
+                  External Link Icon 
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M14 3h7m0 0v7m0-7L10 14m-4 7h12a2 2 0 002-2V9" />
+                  </svg>
+                  View on Kaggle
+              </a> -->
+              <!-- Source Button -->
+              <a href="https://github.com/mo-elgazar74/Client-Server-Chatbot" target="_blank" 
+                  class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--primary)] text-[var(--primary)] font-semibold transition hover:bg-[var(--primary)] hover:text-black">
+                  <!-- GitHub Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.42c.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.09-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  Source
+              </a>
+          </div>
+      </div>
+    </div>
+
+      <!-- Project Card 4 -->
+      <div class="glass group flex flex-col md:flex-row items-center glass rounded-2xl overflow-hidden 
+                  transform transition-transform duration-300 ease-out 
+                  hover:-translate-y-2 hover:shadow-[0_4px_20px_var(--primary)] hover:scale-105" >
+        <!-- Left Image -->
+        <img src="assets/expense2.jpg" alt="Project Image" class="w-full md:w-1/2 h-56 object-cover">
+        <!-- Right Content -->
+        <div class="p-6 md:w-1/2">
+          <h3 class="text-2xl font-bold text-[var(--text)]">Expenses Tracker</h3>
           <p class="text-[var(--subtext)] mt-2 text-sm">
             A simple and intuitive app to log your income and expenses, visualize spending patterns, and take control of your personal finances.
           </p>
-          <a href="https://github.com/mo-elgazar74/Expense-Tracker" target="_blank" class="inline-block mt-4 text-[var(--primary)] font-semibold hover:underline">View on GitHub →</a>
+          <div class="mt-4 flex gap-3">
+
+            <!-- Live Demo Button
+            <a href="https://expense-tracker-demo-link.com" target="_blank" 
+              class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--primary)] text-black font-semibold transition hover:opacity-90">
+              External Link Icon
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M14 3h7m0 0v7m0-7L10 14m-4 7h12a2 2 0 002-2V9" />
+              </svg>
+              Live Demo
+            </a> -->
+            <!-- Source Button -->
+            
+            <a href="https://github.com/mo-elgazar74/Expense-Tracker" target="_blank" 
+              class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--primary)] text-[var(--primary)] font-semibold transition hover:bg-[var(--primary)] hover:text-black">
+              <!-- GitHub Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.42c.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.09-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              Source
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-  
+<!-- Contact -->
+<section id="contact" class="py-20" data-aos="fade-up">
+  <div class="max-w-2xl mx-auto text-center">
+    <h2 class="text-4xl font-bold text-white mb-4">Let’s Talk</h2>
+    <p class="text-gray-300 mb-10">Got an idea or project? Drop a message 🚀</p>
+  </div>
+  <div class="max-w-2xl mx-auto glass bg-black/40 backdrop-blur-lg p-8 rounded-2xl border border-gray-700">
+    <form id="contactForm" class="space-y-5">
+      <input type="text" name="from_name" placeholder="Your Name" required class="w-full p-4 bg-transparent border border-gray-600 rounded-xl text-white focus:border-[var(--primary)] outline-none" />
+      <input type="email" name="email" placeholder="Your Email" required class="w-full p-4 bg-transparent border border-gray-600 rounded-xl text-white focus:border-[var(--primary)] outline-none" />
+      <textarea name="message" rows="5" placeholder="Message..." required class="w-full p-4 bg-transparent border border-gray-600 rounded-xl text-white focus:border-[var(--primary)] outline-none"></textarea>
+      <button type="submit" class="w-full py-3 rounded-xl font-semibold bg-[var(--primary)] text-black hover:bg-transparent hover:text-[var(--primary)] border border-[var(--primary)] transition">
+        Send
+      </button>
+    </form>
+    <p id="formMessage" class="text-center mt-4 text-sm"></p>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section id="contact" class="py-10 sm:py-16 md:py-20 bg-[#161618]" data-aos="fade-up">
-    <div class="max-w-xl mx-auto px-3 sm:px-6">
-      <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-10">📬 Let's Connect</h2>
-      <form action="https://formspree.io/f/xnnvpevj" method="POST" class="space-y-4 sm:space-y-5">
-        <input type="text" name="from_name" placeholder="Name" required class="w-full p-3 sm:p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white text-sm sm:text-base" />
-        <input type="email" name="email" placeholder="Email" required class="w-full p-3 sm:p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white text-sm sm:text-base" />
-        <textarea name="message" rows="5" placeholder="Message..." required class="w-full p-3 sm:p-4 bg-[#1c1c1e] border border-gray-700 rounded-lg text-white text-sm sm:text-base"></textarea>
-        <button type="submit" class="bg-[var(--primary)] text-black w-full py-2 sm:py-3 rounded-lg font-semibold hover:bg-transparent hover:text-[var(--primary)] border border-[var(--primary)] transition text-sm sm:text-base">Send Message</button>
-      </form>
-    </div>
-  </section>
 
-  <footer class="bg-[#0f0f11] border-t border-gray-700 text-[var(--subtext)] text-sm px-6 py-10">
+<!-- Footer -->
+<footer class="bg-[#0f0f11] border-t border-gray-700 text-[var(--subtext)] text-sm px-6 py-10">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
       
-      <!-- Social Icons -->
-      <div class="flex gap-6">
+      <!-- Social Icons (Left) -->
+      <div class="flex gap-6 order-1 md:order-1">
         <a target="_blank" href="https://github.com/mo-elgazar74" aria-label="GitHub" class="group border border-white/20 p-3 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black">
             <path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z" />
           </svg>
         </a>
         <a target="_blank" href="https://www.linkedin.com/in/mohamed-elgazar-17b198264/" aria-label="LinkedIn" class="group border border-white/20 p-3 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black">
             <path d="M18.3362 18.339H15.6707V14.1622C15.6707 13.1662 15.6505 11.8845 14.2817 11.8845C12.892 11.8845 12.6797 12.9683 12.6797 14.0887V18.339H10.0142V9.75H12.5747V10.9207H12.6092C12.967 10.2457 13.837 9.53325 15.1367 9.53325C17.8375 9.53325 18.337 11.3108 18.337 13.6245V18.339H18.3362ZM7.00373 8.57475C6.14573 8.57475 5.45648 7.88025 5.45648 7.026C5.45648 6.1725 6.14648 5.47875 7.00373 5.47875C7.85873 5.47875 8.55173 6.1725 8.55173 7.026C8.55173 7.88025 7.85798 8.57475 7.00373 8.57475ZM8.34023 18.339H5.66723V9.75H8.34023V18.339ZM19.6697 3H4.32923C3.59498 3 3.00098 3.5805 3.00098 4.29675V19.7033C3.00098 20.4202 3.59498 21 4.32923 21H19.6675C20.401 21 21.001 20.4202 21.001 19.7033V4.29675C21.001 3.5805 20.401 3 19.6675 3H19.6697Z" />
           </svg>
         </a>
@@ -514,52 +920,115 @@
             <path fill="currentColor" d="m18.73 5.41l-1.28 1L12 10.46L6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64" />
           </svg>
         </a>
+        <a href="tel:+201098963742" aria-label="Phone" class="group border border-white/20 p-3 rounded-full bg-[#1414149c] hover:bg-[var(--primary)] transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-black" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1v3.5c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4.5 3 3.95 3.45 3.5 4 3.5H7.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+        </a>
+
       </div>
-<!-- Stack Info -->
-<div class="text-sm space-y-2 text-center md:text-right text-[var(--subtext)]">
-  <p class="flex items-center justify-center md:justify-end gap-2">
-    <span>Built with</span>
-
-    <!-- HTML Group -->
-    <span class="flex items-center gap-1 group">
-      <img src="svg/HTML5.svg" alt="HTML" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
-      <span class="text-[var(--text)] transition-colors duration-200 group-hover:text-[var(--primary)]">HTML</span>
-    </span>
-
-    <!-- JavaScript Group -->
-    <span class="flex items-center gap-1 group">
-      <img src="svg/javaScript.svg" alt="JavaScript" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
-      <span class="text-[var(--text)] transition-colors duration-200 group-hover:text-[var(--primary)]">JavaScript</span>
-    </span>
-  </p>
-
-  <p class="flex items-center justify-center md:justify-end gap-2">
-    <span>Styled with</span>
-
-    <!-- Tailwind Group -->
-    <span class="flex items-center gap-1 group">
-      <img src="svg/tailwindcss.svg" alt="Tailwind CSS" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
-      <span class="text-[var(--text)] transition-colors duration-200 group-hover:text-[var(--primary)]">TailwindCSS</span>
-    </span>
-  </p>
-
-  <p class="flex items-center justify-center md:justify-end gap-2">
-    <span>Deployed on</span>
-
-    <!-- Vercel Group -->
-    <span class="flex items-center gap-1 group">
-      <img src="svg/vercel.svg" alt="Vercel" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
-      <span class="text-[var(--text)] transition-colors duration-200 group-hover:text-[var(--primary)]">Vercel</span>
-    </span>
-  </p>
-</div>
-
+  
+      <!-- Center Text -->
+      <div class="order-3 md:order-2 text-center">
+        <p class="text-text-secondary">© 2025 Mohamed Elgazar. All rights reserved.</p>
+      </div>
+  
+      <!-- Stack Info (Right) -->
+      <div class="text-sm space-y-2 text-center md:text-right text-[var(--subtext)] order-2 md:order-3">
+        <p class="flex items-center justify-center md:justify-end gap-2">
+          <span>Built with</span>
+          <span class="flex items-center gap-1 group">
+            <img src="svg/HTML5.svg" alt="HTML" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
+            <span class="text-[var(--text)] group-hover:text-[var(--primary)]">HTML</span>
+          </span>
+          <span class="flex items-center gap-1 group">
+            <img src="svg/javaScript.svg" alt="JavaScript" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
+            <span class="text-[var(--text)] group-hover:text-[var(--primary)]">JavaScript</span>
+          </span>
+        </p>
+        <p class="flex items-center justify-center md:justify-end gap-2">
+          <span>Styled with</span>
+          <span class="flex items-center gap-1 group">
+            <img src="svg/tailwindcss.svg" alt="Tailwind CSS" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
+            <span class="text-[var(--text)] group-hover:text-[var(--primary)]">TailwindCSS</span>
+          </span>
+        </p>
+        <p class="flex items-center justify-center md:justify-end gap-2">
+          <span>Deployed on</span>
+          <span class="flex items-center gap-1 group">
+            <img src="svg/vercel.svg" alt="Vercel" class="h-4 opacity-70 transition group-hover:opacity-100 group-hover:drop-shadow-[0_0_4px_var(--primary)]" />
+            <span class="text-[var(--text)] group-hover:text-[var(--primary)]">Vercel</span>
+          </span>
+        </p>
+      </div>
+  
     </div>
   </footer>
+  
   
   </div>
 
   <script>
+    const form = document.getElementById("contactForm");
+    const messageEl = document.getElementById("formMessage");
+    
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+    
+      const formData = new FormData(form);
+    
+      try {
+        const res = await fetch("https://formspree.io/f/movnvgpy", {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+    
+        if (res.ok) {
+          messageEl.innerHTML = `
+            <span class="inline-flex items-center gap-2 text-[var(--primary)]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              Message sent successfully 🎉
+            </span>`;
+          form.reset();
+        } else {
+          messageEl.innerHTML = `
+            <span class="inline-flex items-center gap-2 text-red-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+              Something went wrong. Try again.
+            </span>`;
+        }
+      } catch (error) {
+        messageEl.innerHTML = `
+          <span class="inline-flex items-center gap-2 text-red-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"/>
+            </svg>
+            Network error. Please try again.
+          </span>`;
+      }
+    });
+
+  const navbar = document.querySelector('.topbar'); 
+  const offset = navbar.offsetHeight;
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      const targetPosition = target.offsetTop - offset;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth"
+      });
+    });
+  });
+
     function initLoading() {
       // Typing animation dynamic steps only
       const typing = document.querySelector('.typing-animation');
@@ -574,7 +1043,9 @@
       setTimeout(() => {
         loadingScreen.classList.add('fade-out');
         mainContent.classList.add('show');
-        AOS.init({ once: true });
+        // Trigger hero animations
+        mainContent.classList.add('hero-animate');
+        AOS.init({ }); // once: true
         setTimeout(() => {
           loadingScreen.remove();
         }, 500);
