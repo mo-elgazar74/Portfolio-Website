@@ -17,6 +17,117 @@
       --text: #ffffff;
       --subtext: #aaaaaa;
     }
+      /* Responsive Tweaks */
+      @media (max-width: 768px) {
+        .max-w-6xl, .max-w-5xl, .max-w-2xl {
+          max-width: 100vw;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+        }
+        .topbar {
+          left: 0;
+          right: 0;
+          width: 100vw;
+          border-radius: 0;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+        }
+        .main-content {
+          padding-top: 0 !important;
+        }
+        .hero-left h1 {
+          font-size: 2rem !important;
+          line-height: 1.2 !important;
+        }
+        .hero-left p {
+          font-size: 1.1rem !important;
+        }
+        .hero-right .relative {
+          width: 12rem !important;
+          height: 12rem !important;
+        }
+        .hero-right img {
+          width: 100% !important;
+          height: 100% !important;
+        }
+        .scroll-track {
+          gap: 1rem;
+        }
+        .stack-scroll {
+          gap: 1rem;
+        }
+        section {
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+        }
+        .glass {
+          padding: 1rem !important;
+        }
+        .rounded-2xl, .rounded-xl {
+          border-radius: 1rem !important;
+        }
+        .grid-cols-1, .md\:grid-cols-2, .lg\:grid-cols-3 {
+          grid-template-columns: 1fr !important;
+        }
+        .md\:flex-row {
+          flex-direction: column !important;
+        }
+        .md\:w-1\/2 {
+          width: 100% !important;
+        }
+        .h-56 {
+          height: 10rem !important;
+        }
+        .footer {
+          flex-direction: column !important;
+          gap: 1rem !important;
+        }
+        .order-1, .order-2, .order-3 {
+          order: unset !important;
+        }
+        .text-4xl {
+          font-size: 2rem !important;
+        }
+        .text-2xl {
+          font-size: 1.2rem !important;
+        }
+        .text-xl {
+          font-size: 1rem !important;
+        }
+        .text-base {
+          font-size: 0.95rem !important;
+        }
+        .text-sm {
+          font-size: 0.85rem !important;
+        }
+        .text-xs {
+          font-size: 0.75rem !important;
+        }
+        .py-20, .py-16, .py-12, .py-10 {
+          padding-top: 2rem !important;
+          padding-bottom: 2rem !important;
+        }
+        .px-4, .px-3, .px-6 {
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+        }
+        .gap-8, .gap-12, .gap-6, .gap-4, .gap-3 {
+          gap: 1rem !important;
+        }
+        .flex-wrap {
+          flex-wrap: wrap !important;
+        }
+        .items-center {
+          align-items: center !important;
+        }
+        .justify-between {
+          justify-content: center !important;
+        }
+        .mx-auto {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+      }
 
     html, body {
       max-width: 100vw;
@@ -186,6 +297,15 @@
 </head>
 
 <body class="overflow-x-hidden" onload="initLoading()">
+  <!-- Mobile Nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-[#0e0e10]/95 border-t border-white/10 flex md:hidden justify-between px-4 py-2" aria-label="Mobile navigation bar">
+    <a href="#home" class="flex-1 text-center text-xs text-white hover:text-[var(--primary)]">Home</a>
+    <a href="#about" class="flex-1 text-center text-xs text-white hover:text-[var(--primary)]">About</a>
+    <a href="#timeline" class="flex-1 text-center text-xs text-white hover:text-[var(--primary)]">Journey</a>
+    <a href="#tech" class="flex-1 text-center text-xs text-white hover:text-[var(--primary)]">Skills</a>
+    <a href="#projects" class="flex-1 text-center text-xs text-white hover:text-[var(--primary)]">Projects</a>
+    <a href="#contact" class="flex-1 text-center text-xs text-white hover:text-[var(--primary)]">Contact</a>
+  </nav>
   <!-- Loading Screen -->
   <div class="loading-screen" id="loadingScreen">
     <h1>
